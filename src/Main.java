@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String name="";
-        boolean play = true;
+        String name;
+        boolean play;
 
         try {
             System.out.println("Hi! What's your name?");
@@ -27,12 +27,12 @@ public class Main {
     public static void guessTheNumber(String name,int from,int to) throws InterruptedException {
         int attemptsAllowed = 5;
         int attempted = 0;
-        int guess = 0;
+        int guess;
         boolean win = false;
         int number = randInt(from,to);
         int delay=1500;
         String attempt ="";
-        String winMessage="";
+        String winMessage;
         String[] messages = {"Well, %s, I am thinking of a number between %d and %d.","Can you guess my number?","Take a guess."};
         for (String message : messages) {
             System.out.printf(message+"\n",name,from,to);
@@ -59,7 +59,7 @@ public class Main {
         }
 
         if (win) {
-            winMessage = win && attempted == 1 ? "And with your FIRST GUESS!":"You guessed my number in %d guesses!";
+            winMessage = attempted == 1 ? "And with your FIRST GUESS!":"You guessed my number in %d guesses!";
             System.out.printf("%s, You Won! " + winMessage +"\n",name,attempted);
         } else {
             System.out.println("You lose. You ran out of guesses.");
@@ -76,8 +76,13 @@ public class Main {
     public static boolean playAgain(){
         String ans ="";
         while (!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
-            System.out.println("Would you like to play again? (Y or N)");
-            ans = userInput.next();
+            try {
+                System.out.println("Would you like to play again? (Y or N)");
+                ans = userInput.next();
+            } catch (Exception e){
+                System.err.println("Input Error");
+                userInput.nextLine();
+            }
         }
         return ans.equalsIgnoreCase("y");
     }
