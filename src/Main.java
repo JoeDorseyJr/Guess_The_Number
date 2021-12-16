@@ -31,7 +31,6 @@ public class Main {
         boolean win = false;
         int number = randInt(from,to);
         int delay=1500;
-        String attempt ="";
         String winMessage;
         String[] messages = {"Well, %s, I am thinking of a number between %d and %d.","Can you guess my number?","Take a guess."};
         for (String message : messages) {
@@ -50,7 +49,7 @@ public class Main {
                 }
                 attempted++;
                 if (attempted != attemptsAllowed && !win){
-                    System.out.printf(messages[2] + " %d %s left.\n",Math.abs(attempted-attemptsAllowed),attempt = Math.abs(attempted-attemptsAllowed) > 1 ? "guesses": "guess");
+                    System.out.printf(messages[2] + " %d %s left.\n",Math.abs(attempted-attemptsAllowed), Math.abs(attempted-attemptsAllowed) > 1 ? "guesses": "guess");
                 }
             } catch (Exception e) {
                 String wrongInput = userInput.nextLine();
@@ -67,10 +66,11 @@ public class Main {
     }
 
     public static int randInt(int start, int stop){
+        double randNum = Math.random();
         if (start < 0 ) {
-            return (int) Math.round(Math.random() * (Math.abs(start - stop)) + start);
+            return (int) Math.round(randNum * (Math.abs(start - stop)) + start);
         }
-        return (int) Math.round(Math.random() * stop + start);
+        return (int) Math.round(randNum * stop + (start - (start*randNum)));
     }
 
     public static boolean playAgain(){
